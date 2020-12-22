@@ -1,0 +1,76 @@
+#equation {
+    font-size: 16px;
+    padding: 4px;
+    width: 100%;
+}
+
+#xstart,
+#xend,
+#count {
+    font-size: 14px;
+    padding: 3px;
+    text-align: left;
+}
+
+.centered_table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+.leftaligned {
+    text-align: left;
+}
+
+.centered {
+    text-align: center;
+}
+
+.rightaligned {
+    text-align: right;
+    width: 5%;
+}
+
+.bottomcentered {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+}
+
+#gen {
+    width: 100%;
+}
+
+#error {
+    color: red;
+    width: 100%;
+}
+
+#split {
+    width: 50%;
+    height: 100%;
+}
+
+#canvastd {
+    width: 50%;
+    height: 100%;
+}
+
+#canvas {
+    width: 100%;
+    height: 100%;
+    border: lightgrey 1px solid;
+}
+
+#output {
+    width: 100%;
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    /* <=iOS4, <= Android  2.3 */
+    -moz-box-sizing: border-box;
+    /* FF1+ */
+    box-sizing: border-box;
+    /* Chrome, IE8, Opera, Safari 5.1*/
+}

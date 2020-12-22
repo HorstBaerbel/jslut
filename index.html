@@ -3,76 +3,7 @@
 <head>
 	<title>jsLUT - A simple lookup table generator that accepts JavaScript expressions</title>
 	<script src="generate.js"></script>
-	<style>
-		#equation {
-			font-size: 16px;
-			padding: 4px;
-			width: 100%;
-		}
-
-		#xstart,
-		#xend,
-		#count {
-			font-size: 14px;
-			padding: 3px;
-			text-align: left;
-		}
-
-		.centered_table {
-			margin-left: auto;
-			margin-right: auto;
-			width: 90%;
-		}
-
-		.leftaligned {
-			text-align: left;
-		}
-
-		.centered {
-			text-align: center;
-		}
-
-		.rightaligned {
-			text-align: right;
-			width: 5%;
-		}
-
-		#gen {
-			width: 100%;
-		}
-
-		#error {
-			color: red;
-			width: 100%;
-		}
-
-		#split {
-			width: 50%;
-			height: 100%;
-		}
-
-		#canvastd {
-			width: 50%;
-			height: 100%;
-		}
-
-		#canvas {
-			width: 100%;
-			height: 100%;
-			border: lightgrey 1px solid;
-		}
-
-		#output {
-			width: 100%;
-			height: 100%;
-			-webkit-box-sizing: border-box;
-			/* <=iOS4, <= Android  2.3 */
-			-moz-box-sizing: border-box;
-			/* FF1+ */
-			box-sizing: border-box;
-			/* Chrome, IE8, Opera, Safari 5.1*/
-		}
-	</style>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -96,14 +27,20 @@
 				<td class="rightaligned">x<sub>start</sub></td>
 				<td><input type="text" id="xstart" value="0" title="Start value for x" /></td>
 				<td rowspan="3">
-					<input type="radio" name="bitdepth" title="Do not round() values before output"
+					<input type="radio" name="bitdepth" title="Do not trunc() values before output"
 						value="float" />float</input><br />
-					<input type="radio" name="bitdepth" title="Round() results before output" value="int32_t"
+					<input type="radio" name="bitdepth" title="trunc() results before output" value="uint32_t"
 						checked />32bit</input>
-					<input type="radio" name="bitdepth" title="Round() results before output"
-						value="int16_t" />16bit</input><br />
-					<input type="radio" name="bitdepth" title="Round() results before output"
-						value="int8_t" />8bit</input>
+					<input type="radio" name="bitdepth" title="trunc() results before output" value="int32_t"
+						checked />signed 32bit</input><br />
+					<input type="radio" name="bitdepth" title="trunc() results before output"
+						value="uint16_t" />16bit</input>
+					<input type="radio" name="bitdepth" title="trunc() results before output" value="int16_t" />signed
+					16bit</input><br />
+					<input type="radio" name="bitdepth" title="trunc() results before output"
+						value="uint8_t" />8bit</input>
+					<input type="radio" name="bitdepth" title="trunc() results before output" value="int8_t" />signed
+					8bit</input>
 				</td>
 			</tr>
 			<tr>
@@ -141,20 +78,19 @@
 			<td id="canvastd"><canvas id="canvas" width="128" height="128"></canvas></td>
 			<td id="split"><textarea id="output"></textarea></td>
 		</tr>
-		<tr>
-			<td colspan="2" class="centered"><a id="link" href="" />"Perma"link</td>
-		</tr>
-		<tr>
-			<td colspan="2" class="centered"><a href="https://github.com/HorstBaerbel/jslut" />Github repository</td>
-		</tr>
 	</table>
+	<div class="bottomcentered">
+		<a id="link" href=""><img src="Permalink.svg" alt="Permalink" width="64" height="64"></a>
+		<a href="https://github.com/HorstBaerbel/jslut"><img src="GitHub-Mark.svg" alt="Github repository" width="64"
+				height="64"></a>
+	</div>
 	<script>
 		function run() {
 			document.getElementById("link").setAttribute('href', makeLink());
-			//set canvas width and height to that of the parent
+			// set canvas width and height to that of the parent
 			document.getElementById("canvas").width = document.getElementById("canvastd").clientWidth;
 			document.getElementById("canvas").height = document.getElementById("canvastd").clientHeight;
-			//now call actual code that generates and draws values
+			// now call actual code that generates and draws values
 			generate();
 		}
 
