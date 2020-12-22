@@ -1,10 +1,10 @@
 
 function replaceMath(input)
 {
-	//replace constants
+	// replace constants
 	input = input.replace(/E/g, "Math.E");
 	input = input.replace(/PI/g, "Math.PI");
-	//replace functions
+	// replace functions
 	input = input.replace(/abs/g, "Math.abs");
 	input = input.replace(/acos/g, "Math.acos");
 	input = input.replace(/asin/g, "Math.asin");
@@ -40,21 +40,21 @@ function makeFunction(equation)
 
 function generateValues()
 {
-    //get input values
+    // get input values
     var xstart = parseFloat(evaluateFunction(document.getElementById('xstart').value));
 	var xend = parseFloat(evaluateFunction(document.getElementById('xend').value));
 	var count = parseInt(evaluateFunction(document.getElementById('count').value));
-	//create array to store values in
+	// create array to store values in
     var valueArray = [];
-	//build function from user equation
+	// build function from user equation
     var f = makeFunction(document.getElementById('equation').value);
-	//calculate values
+	// calculate values
     for (var i = 0; i < count; i++) {
-		//calculate running x
+		// calculate running x
         var x = xstart + (((xend - xstart) * i) / (count - 1));
-        //run user function on x
+        // run user function on x
         var value = f(x);
-		//store result in array
+		// store result in array
         valueArray.push(value);
     }
     return [valueArray, xstart, xend];
@@ -74,6 +74,28 @@ function getBitdepth()
 			return 16;
 		default:
 			return 8;
+	}
+}
+
+function getLimits()
+{
+	switch(document.querySelector('input[name="bitdepth"]:checked').value) {
+		case "float":
+			return [1.175494351e-38, 3.402823466e+38];
+		case "uint32_t":
+			return [0, 2^32-1];
+		case "int32_t":
+			return [-2147483648, 2147483647];
+		case "uint16_t":
+			return [0, 65535]
+		case "int16_t":
+			return [-32768, 32767]
+		case "uint8_t":
+			return [0, 255];
+		case "int8_t":
+			return [-128, 127];
+		default:
+			return 0;
 	}
 }
 
@@ -103,58 +125,56 @@ function toIntString(valueArray, base, breakafter = 10)
 
 function convertValues(params)
 {
-    //get input values
+    // get input values
 	var valueArray = params[0];
-    var bitdepth = getBitdepth();
+	var bitdepth = getBitdepth();
+	var limits = getLimits();
 	var isFloat = (document.querySelector('input[name="bitdepth"]:checked').value == "float");
-	//calculate min/max for output bits
-	var outputMin = 0;
-	var outputMax = Math.pow(2, bitdepth) - 1;
-	//check if we need to round
+	// check if we need to round
 	if (isFloat == true) {
-		//floats are rounded to 10 decimal places, enough for a 32bit integer
+		// floats are rounded to 10 decimal places, enough for a 32bit integer
 		for (var i = 0; i < valueArray.length; i++) {
 			valueArray[i] = parseFloat(valueArray[i].toFixed(10));
 		}
 	}
 	else {
-		//if we want integers we need to round
+		// if we want integers we need to truncate
 		for (var i = 0; i < valueArray.length; i++) {
-			valueArray[i] = Math.round(valueArray[i]);
+			valueArray[i] = Math.trunc(valueArray[i]);
 		}
 	}
-	//get min/max value range
-	var miny = Math.pow(2, 32);
-	var maxy = 0;
+	// get min/max value range
+	var miny = limits[1];
+	var maxy = limits[0];
 	for (var i = 0; i < valueArray.length; i++) {
 		miny = valueArray[i] < miny ? valueArray[i] : miny;
 		maxy = valueArray[i] > maxy ? valueArray[i] : maxy;
 	}
-	//check if values need signs
+	// check if values need signs
 	/*if (miny < 0 || maxy < 0) {
 		//value MUST be signed. check
 		if (!isSigned) {
 			document.getElementById('error').innerHTML += "Warning: Results are signed, but selected output format is not! Result will be b0rked...";
 		}
 	}*/
-	//check if range is ok
-	if (miny < outputMin || maxy > outputMax) {
+	// check if range is ok
+	if (miny < limits[0] || maxy > limits[1]) {
 		if (document.getElementById('error').innerHTML != "") {
 			document.getElementById('error').innerHTML += "<br />"
 		}
-		document.getElementById('error').innerHTML += "Warning: Output range is [" + outputMin + ", " + outputMax + "], but values are in range [" + miny + ", " + maxy + "]! Result will be b0rked...";
+		document.getElementById('error').innerHTML += "Warning: Output range is [" + limits[0] + ", " + limits[1] + "], but values are in range [" + miny + ", " + maxy + "]! Result will be b0rked...";
 	}
-	//print minimum/maximum values
+	// print minimum/maximum values
 	document.getElementById("output").value = "Minimum = " + miny + "\n";
 	document.getElementById("output").value += "Maximum = " + maxy + "\n";
-	//convert values to integers
+	// convert values to integers
 	if (document.querySelector('input[name="format"]:checked').value == "base16") {
 		document.getElementById("output").value += toIntString(valueArray, 16);
 	}
 	else if (document.querySelector('input[name="format"]:checked').value == "base16_2sc") {
-		//convert numbers to 2's complement
+		// convert numbers to 2's complement
 		var complementValue = (bitdepth == 8 ? 0xFF : (bitdepth == 16 ? 0xFFFF : (bitdepth == 32 ? 0xFFFFFFFF : 0)));
-		//do deep copy of array, else we're changing it
+		// do deep copy of array, else we're changing it
 		var complementArray = [];
 		for (var i = 0; i < valueArray.length; i++) {
 			if (valueArray[i] < 0) {
@@ -175,18 +195,18 @@ function convertValues(params)
 //------------------------------------------------------------------------------
 
 function drawValues(params) {
-	//get canvas element
+	// get canvas element
 	var canvas = document.getElementById('canvas');
-	//get drawing context from canvas element
+	// get drawing context from canvas element
 	var ctx = canvas.getContext("2d");
-	//check if that worked ans we have a valid context
+	// check if that worked ans we have a valid context
 	if (!canvas || !canvas.getContext) {
 		alert("No canvas or context. Your browser sucks!");
 		return;
 	}
 	var width = canvas.width;
 	var height = canvas.height;
-	//calculate scale factors
+	// calculate scale factors
 	var valueArray = params[0];
 	var ystart = params[3];
 	var yend = params[4];
@@ -195,7 +215,7 @@ function drawValues(params) {
 	}
 	var yscale = height / (yend - ystart);
 	var xscale = width / (valueArray.length - 1);
-	//draw values
+	// draw values
 	ctx.beginPath();
 	ctx.moveTo(0, height - (valueArray[0] - ystart) * yscale);
     for (var x = 1; x < valueArray.length; x++) {
@@ -207,12 +227,12 @@ function drawValues(params) {
 
 function generate()
 {
-	//clear error string
+	// clear error string
 	document.getElementById("error").innerHTML = "";
-	//run function for range
+	// run function for range
 	var values = generateValues();
-	//convert values to output format
+	// convert values to output format
 	values = convertValues(values);
-	//draw values in canvas
+	// draw values in canvas
 	drawValues(values);
 }
