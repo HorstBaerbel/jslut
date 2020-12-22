@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-   sodipodi:docname="Permalink.svg">
+   sodipodi:docname="Permalink2.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,11 +25,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="22.03344"
-     inkscape:cy="128.28592"
+     inkscape:zoom="3.959798"
+     inkscape:cx="95.856342"
+     inkscape:cy="118.07944"
      inkscape:document-units="px"
-     inkscape:current-layer="g1008"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-bbox="true"
      inkscape:bbox-paths="true"
@@ -41,7 +41,8 @@
      inkscape:window-height="1376"
      inkscape:window-x="0"
      inkscape:window-y="27"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     inkscape:snap-page="true" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -59,48 +60,54 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-233)">
+    <circle
+       style="opacity:1;fill:#1b1817;fill-opacity:1;stroke:none;stroke-width:42.96552277;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+       id="path826"
+       cx="31.999998"
+       cy="265"
+       r="31.866364" />
     <g
        id="g1008"
-       transform="matrix(0.11731134,0,0,0.11731134,19.797782,247.17137)"
+       transform="matrix(0.09455505,0,0,0.09455505,22.018525,253.58418)"
        style="paint-order:stroke fill markers">
       <path
          inkscape:connector-curvature="0"
          id="path815-6-3-7"
          d="m 81.111975,151.32597 c 0,-28.39487 -26.036831,-51.413115 -58.154744,-51.413115 0,0 -26.99208,-4.52e-4 -59.109993,-4.52e-4 -32.117912,0 -58.154748,23.018697 -58.154748,51.413557 0,28.39487 26.036836,51.41358 58.154748,51.41358 32.117913,0 59.109993,0 59.109993,0 32.117913,0 58.154744,-23.01871 58.154744,-51.41358 z"
-         style="opacity:1;fill:none;fill-opacity:1;stroke:#1b1817;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
       <path
          inkscape:connector-curvature="0"
          id="path815-6-3"
          d="m 305.62495,151.32649 c 0,-28.39488 -26.03684,-51.413126 -58.15475,-51.413126 0,0 -26.99209,-4.5e-4 -59.11001,-4.5e-4 -32.11792,0 -58.15478,23.018696 -58.15478,51.413566 0,28.39487 26.03686,51.41357 58.15478,51.41357 32.11792,0 59.11001,0 59.11001,0 32.11791,0 58.15475,-23.0187 58.15475,-51.41357 z"
-         style="opacity:1;fill:none;fill-opacity:1;stroke:#1b1817;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
       <path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
          id="path986-0"
          d="M 1.6263483,151.32648 H 206.09332"
-         style="fill:none;stroke:#ffffff;stroke-width:50;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+         style="fill:none;stroke:#1b1817;stroke-width:53.62295532;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
       <path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
          id="path986"
          d="M 19.86705,151.32648 H 187.85262"
-         style="fill:none;stroke:#1b1817;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+         style="fill:none;stroke:#fcfcfc;stroke-width:30;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
     </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.77984619px;line-height:1.79999995;font-family:'Noto Color Emoji';-inkscape-font-specification:'Noto Color Emoji';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.49449614"
-       x="32.695312"
-       y="253.30424"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.9429121px;line-height:1.79999995;font-family:'Noto Color Emoji';-inkscape-font-specification:'Noto Color Emoji';letter-spacing:0px;word-spacing:0px;fill:#fdfdfd;fill-opacity:1;stroke:none;stroke-width:0.39857283"
+       x="32.414173"
+       y="258.52744"
        id="text1012"><tspan
          sodipodi:role="line"
-         x="32.695312"
-         y="253.30424"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:17.63888931px;line-height:1.79999995;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu Bold';text-align:center;text-anchor:middle;stroke-width:0.49449614;fill:#1b1817;fill-opacity:1"
+         x="32.414173"
+         y="258.52744"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.21726322px;line-height:1.79999995;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu Bold';text-align:center;text-anchor:middle;fill:#fdfdfd;fill-opacity:1;stroke-width:0.39857283"
          id="tspan1016">PERMA</tspan><tspan
          sodipodi:role="line"
-         x="32.695312"
-         y="288.90799"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:17.63888931px;line-height:1.79999995;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu Bold';text-align:center;text-anchor:middle;stroke-width:0.49449614;fill:#1b1817;fill-opacity:1"
+         x="32.414173"
+         y="287.22467"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.21726322px;line-height:1.79999995;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu Bold';text-align:center;text-anchor:middle;fill:#fdfdfd;fill-opacity:1;stroke-width:0.39857283"
          id="tspan825">LINK</tspan></text>
   </g>
 </svg>
