@@ -1,2 +1,3 @@
 # jslut
-JavaScript lookup table generator
+
+A simple lookup table generator that accepts JavaScript expressions

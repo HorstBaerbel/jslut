@@ -1,0 +1,241 @@
+<html>
+
+<head>
+	<title>jsLUT - A simple lookup table generator that accepts JavaScript expressions</title>
+	<script src="generate.js"></script>
+	<style>
+		#equation {
+			font-size: 16px;
+			padding: 4px;
+			width: 100%;
+		}
+
+		#xstart,
+		#xend,
+		#count {
+			font-size: 14px;
+			padding: 3px;
+			text-align: left;
+		}
+
+		.centered_table {
+			margin-left: auto;
+			margin-right: auto;
+			width: 90%;
+		}
+
+		.leftaligned {
+			text-align: left;
+		}
+
+		.centered {
+			text-align: center;
+		}
+
+		.rightaligned {
+			text-align: right;
+			width: 5%;
+		}
+
+		#gen {
+			width: 100%;
+		}
+
+		#error {
+			color: red;
+			width: 100%;
+		}
+
+		#split {
+			width: 50%;
+			height: 100%;
+		}
+
+		#canvastd {
+			width: 50%;
+			height: 100%;
+		}
+
+		#canvas {
+			width: 100%;
+			height: 100%;
+			border: lightgrey 1px solid;
+		}
+
+		#output {
+			width: 100%;
+			height: 100%;
+			-webkit-box-sizing: border-box;
+			/* <=iOS4, <= Android  2.3 */
+			-moz-box-sizing: border-box;
+			/* FF1+ */
+			box-sizing: border-box;
+			/* Chrome, IE8, Opera, Safari 5.1*/
+		}
+	</style>
+</head>
+
+<body>
+	<br />
+	<form onsubmit="return false;">
+		<table class="centered_table">
+			<tr>
+				<td class="rightaligned">Equation</td>
+				<td><input type="text" id="equation" value="cos(x)"
+						title="Operators: +, -, *, /, %, >>, <<, &, |, ^, ~, ?:&#13;Comparison: ==, !=, <, <=, >, >=&#13;Constants: E, PI&#13;Functions: abs, acos, asin, atan, atan2, ceil, cos, exp, floor, log, max, min, pow, random, round, sin, sqrt, tan" /><br />
+				</td>
+			</tr>
+		</table>
+		<table class="centered_table">
+			<th>
+			<td>Values:</td>
+			<td>Output:</td>
+			</th>
+			<tr>
+				<td class="rightaligned">x<sub>start</sub></td>
+				<td><input type="text" id="xstart" value="0" title="Start value for x" /></td>
+				<td rowspan="3">
+					<input type="radio" name="bitdepth" title="Do not round() values before output"
+						value="float" />float</input><br />
+					<input type="radio" name="bitdepth" title="Round() results before output" value="int32_t"
+						checked />32bit</input>
+					<input type="radio" name="bitdepth" title="Round() results before output"
+						value="int16_t" />16bit</input><br />
+					<input type="radio" name="bitdepth" title="Round() results before output"
+						value="int8_t" />8bit</input>
+				</td>
+			</tr>
+			<tr>
+				<td class="rightaligned">x<sub>end</sub></td>
+				<td><input type="text" id="xend" value="PI" title="End value for x" /></td>
+			</tr>
+			<tr>
+				<td class="rightaligned">n</td>
+				<td><input type="text" id="count" value="16"
+						title="# of values to generate between xstart and xend" /></sub></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>
+					<input type="radio" name="format" title="Output base10 numbers" value="base10"
+						checked>base10</input>
+					<input type="radio" name="format" title="Output base16 numbers with sign"
+						value="base16" />base16</input>
+					<input type="radio" name="format" title="Output base16 numbers in 2's complement"
+						value="base16_2sc" />base16, 2's complement</input>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2"><input type="submit" value="Generate" id="gen" /></td>
+			</tr>
+			<tr>
+				<td colspan="3" class="centered"><span id="error"></span></td>
+			</tr>
+		</table>
+	</form>
+	<table class="centered_table">
+		<tr>
+			<td id="canvastd"><canvas id="canvas" width="128" height="128"></canvas></td>
+			<td id="split"><textarea id="output"></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="centered"><a id="link" href="" />"Perma"link</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="centered">by raer in 2014</td>
+		</tr>
+	</table>
+	<script>
+		function run() {
+			document.getElementById("link").setAttribute('href', makeLink());
+			//set canvas width and height to that of the parent
+			document.getElementById("canvas").width = document.getElementById("canvastd").clientWidth;
+			document.getElementById("canvas").height = document.getElementById("canvastd").clientHeight;
+			//now call actual code that generates and draws values
+			generate();
+		}
+
+		function makeLink() {
+			var link;
+			var idx = document.URL.indexOf('?');
+			if (idx != -1) {
+				link = document.URL.substring(0, idx);
+			}
+			else {
+				link = document.URL;
+			}
+			link += "?equation=" + encodeURIComponent(document.getElementById('equation').value);
+			link += "&xstart=" + document.getElementById('xstart').value;
+			link += "&xend=" + document.getElementById('xend').value;
+			link += "&count=" + document.getElementById('count').value;
+			link += "&bitdepth=" + document.querySelector('input[name="bitdepth"]:checked').value;
+			link += "&format=" + document.querySelector('input[name="format"]:checked').value;
+			return link;
+		}
+
+		function getParamsFromURL() {
+			var idx = document.URL.indexOf('?');
+			if (idx != -1) {
+				var tempParams = new Object();
+				var pairs = document.URL.substring(idx + 1, document.URL.length).split('&');
+				for (var i = 0; i < pairs.length; i++) {
+					nameVal = pairs[i].split('=');
+					tempParams[nameVal[0]] = nameVal[1];
+				}
+				return tempParams;
+			}
+		}
+
+		function setParamsInDocument(params) {
+			if (params) {
+				if (params["bitdepth"]) {
+					document.querySelector('input[name="bitdepth"][value="' + params["bitdepth"] + '"]').setAttribute('checked', 'true');
+				}
+				if (params["format"]) {
+					document.querySelector('input[name="format"][value="' + params["format"] + '"]').setAttribute('checked', 'true');
+				}
+				if (params["xstart"]) {
+					document.getElementById("xstart").value = params["xstart"];
+				}
+				if (params["xend"]) {
+					document.getElementById("xend").value = params["xend"];
+				}
+				if (params["count"]) {
+					document.getElementById("count").value = params["count"];
+				}
+				if (params["equation"]) {
+					document.getElementById("equation").value = decodeURIComponent(params["equation"]);
+				}
+			}
+		}
+
+		/*function update() {
+			var canvasNode = document.getElementById('canvas');
+			canvasNode.width = canvasNode.parentNode.clientWidth;
+			canvasNode.height = canvasNode.parentNode.clientHeight;
+		}
+
+		window.requestAnimFrame = (function() {
+			return (window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+			function(callback, element) {
+				window.setTimeout(callback, 33);
+			});
+		})();
+
+		window.onload = function loop() {
+			update();
+			window.requestAnimFrame(loop);
+		};*/
+
+		//"main" begins here
+		document.getElementById("equation").focus();
+		document.getElementById("gen").onclick = function () { run(); };
+		//read parameters from URL and set them in the document accordingly
+		setParamsInDocument(getParamsFromURL());
+
+	</script>
+</body>
+
+</html>
