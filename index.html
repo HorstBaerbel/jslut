@@ -14,7 +14,7 @@
 			<tr>
 				<td class="rightaligned">Equation</td>
 				<td><input type="text" id="equation" value="cos(x)"
-						title="Operators: +, -, *, /, %, >>, <<, &, |, ^, ~, ?:&#13;Comparison: ==, !=, <, <=, >, >=&#13;Constants: E, PI&#13;Functions: abs, acos, asin, atan, atan2, ceil, cos, exp, floor, log, max, min, pow, random, round, sin, sqrt, tan&#13;Variables: i == loop index, n == loop count" /><br />
+						title="Operators: +, -, *, /, %, >>, <<, &, |, ^, ~, ?:&#13;Comparison: ==, !=, <, <=, >, >=&#13;Constants: E, PI&#13;Functions: abs, acos, asin, atan, atan2, ceil, cos, exp, floor, log, max, min, pow, random, round, sin, sqrt, tan&#13;Variables: i ➜ loop index, n ➜ loop count" /><br />
 				</td>
 			</tr>
 		</table>
@@ -85,13 +85,21 @@
 				height="64"></a>
 	</div>
 	<script>
+		var equationTitle;
+
 		function run() {
 			document.getElementById("link").setAttribute('href', makeLink());
 			// set canvas width and height to that of the parent
 			document.getElementById("canvas").width = document.getElementById("canvastd").clientWidth;
 			document.getElementById("canvas").height = document.getElementById("canvastd").clientHeight;
 			// now call actual code that generates and draws values
-			generate();
+			var errorMsg = generate();
+			if (errorMsg != "") {
+				document.getElementById("equation").style.backgroundColor = "red";
+			}
+			else {
+				document.getElementById("equation").style.removeProperty('background-color');
+			}
 		}
 
 		function makeLink() {
@@ -166,11 +174,15 @@
 			window.requestAnimFrame(loop);
 		};*/
 
-		//"main" begins here
+		// "main" begins here
 		document.getElementById("equation").focus();
 		document.getElementById("gen").onclick = function () { run(); };
-		//read parameters from URL and set them in the document accordingly
+		// read parameters from URL and set them in the document accordingly
 		setParamsInDocument(getParamsFromURL());
+		// set some variables when loading has finished
+		document.addEventListener('DOMContentLoaded', (event) => {
+			equationTitle = document.getElementById("equation").title;
+		});
 
 	</script>
 </body>

@@ -186,6 +186,22 @@ function convertValues(params) {
 
 //------------------------------------------------------------------------------
 
+function clearValues() {
+    // get canvas element
+    var canvas = document.getElementById('canvas');
+    // get drawing context from canvas element
+    var ctx = canvas.getContext("2d");
+    // check if that worked ans we have a valid context
+    if (!canvas || !canvas.getContext) {
+        alert("No canvas or context. Your browser sucks!");
+        return;
+    }
+    ctx.save()
+    ctx.setTransform(1, 0, 0, 1, 0, 0)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.restore()
+}
+
 function drawValues(params) {
     // get canvas element
     var canvas = document.getElementById('canvas');
@@ -223,10 +239,20 @@ function drawValues(params) {
 function generate() {
     // clear error string
     document.getElementById("error").innerHTML = "";
+    // clear result table and canvas
+    clearValues();
+    document.getElementById("output").value = "";
     // run function for range
-    var values = generateValues();
+    try {
+        var values = generateValues();
+    }
+    catch (error) {
+        document.getElementById("error").innerHTML = "Error: " + error.message;
+        return error.message;
+    }
     // convert values to output format
     values = convertValues(values);
     // draw values in canvas
     drawValues(values);
+    return "";
 }
