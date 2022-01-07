@@ -85,8 +85,6 @@
 				height="64"></a>
 	</div>
 	<script>
-		var equationElement;
-
 		function run() {
 			document.getElementById("link").setAttribute('href', makeLink());
 			// set canvas width and height to that of the parent
@@ -166,17 +164,22 @@
 		}
 
 		// "main" begins here
-
-		// get input element
-		equationElement = document.getElementById("equation");
-		equationElement.focus();
-		// add event listener to equation element for typing detection
-		equationElement.addEventListener("keyup", onEquationTyping);
+		document.getElementById("equation").focus();
+		// add event listener to input fields for typing detection
+		document.getElementById("equation").addEventListener("keyup", onEquationTyping);
+		document.getElementById("xstart").addEventListener("keyup", onEquationTyping);
+		document.getElementById("xend").addEventListener("keyup", onEquationTyping);
+		document.getElementById("count").addEventListener("keyup", onEquationTyping);
+		document.querySelectorAll("input[name='format']").forEach((input) => {
+			input.addEventListener("change", onEquationTyping);
+		});
+		document.querySelectorAll("input[name='bitdepth']").forEach((input) => {
+			input.addEventListener("change", onEquationTyping);
+		});
 		// run generator also when user clicks "generate"
 		document.getElementById("gen").onclick = function () { run(); };
 		// read parameters from URL and set them in the document accordingly
 		setParamsInDocument(getParamsFromURL());
-
 	</script>
 </body>
 
