@@ -209,10 +209,13 @@ function drawValues(params) {
     var xscale = width / (valueArray.length - 1);
     // draw values
     ctx.beginPath();
-    ctx.moveTo(0, height - (valueArray[0] - ystart) * yscale);
+    var prevY = (valueArray[0] - ystart) * yscale;
+    ctx.moveTo(0, height - prevY);
     for (var x = 1; x < valueArray.length; x++) {
+        ctx.lineTo(x * xscale, height - prevY);
         var y = (valueArray[x] - ystart) * yscale;
         ctx.lineTo(x * xscale, height - y);
+        prevY = y;
     }
     ctx.stroke();
 }
