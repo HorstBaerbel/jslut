@@ -34,7 +34,7 @@ function evaluateFunction(equation)
 
 function makeFunction(equation)
 {
-	eval("var f = function (x) { return " + replaceMath(equation) + "}");
+	eval("var f = function (x,i,n) { return " + replaceMath(equation) + "}");
 	return f;
 }
 
@@ -43,17 +43,17 @@ function generateValues()
     // get input values
     var xstart = parseFloat(evaluateFunction(document.getElementById('xstart').value));
 	var xend = parseFloat(evaluateFunction(document.getElementById('xend').value));
-	var count = parseInt(evaluateFunction(document.getElementById('count').value));
+	var n = parseInt(evaluateFunction(document.getElementById('count').value));
 	// create array to store values in
     var valueArray = [];
 	// build function from user equation
     var f = makeFunction(document.getElementById('equation').value);
 	// calculate values
-    for (var i = 0; i < count; i++) {
+    for (var i = 0; i < n; i++) {
 		// calculate running x
-        var x = xstart + (((xend - xstart) * i) / (count - 1));
-        // run user function on x
-        var value = f(x);
+        var x = xstart + (((xend - xstart) * i) / (n - 1));
+        // run user function on x with index i and count n
+        var value = f(x,i,n);
 		// store result in array
         valueArray.push(value);
     }
