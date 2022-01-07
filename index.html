@@ -85,7 +85,7 @@
 				height="64"></a>
 	</div>
 	<script>
-		var equationTitle;
+		var equationElement;
 
 		function run() {
 			document.getElementById("link").setAttribute('href', makeLink());
@@ -156,33 +156,26 @@
 			}
 		}
 
-		/*function update() {
-			var canvasNode = document.getElementById('canvas');
-			canvasNode.width = canvasNode.parentNode.clientWidth;
-			canvasNode.height = canvasNode.parentNode.clientHeight;
+		function onEquationTyping() {
+			let timeout = null;
+			var duration = 1000;
+			clearTimeout(timeout);
+			timeout = setTimeout(function () {
+				run();
+			}, duration);
 		}
 
-		window.requestAnimFrame = (function() {
-			return (window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
-			function(callback, element) {
-				window.setTimeout(callback, 33);
-			});
-		})();
-
-		window.onload = function loop() {
-			update();
-			window.requestAnimFrame(loop);
-		};*/
-
 		// "main" begins here
-		document.getElementById("equation").focus();
+
+		// get input element
+		equationElement = document.getElementById("equation");
+		equationElement.focus();
+		// add event listener to equation element for typing detection
+		equationElement.addEventListener("keyup", onEquationTyping);
+		// run generator also when user clicks "generate"
 		document.getElementById("gen").onclick = function () { run(); };
 		// read parameters from URL and set them in the document accordingly
 		setParamsInDocument(getParamsFromURL());
-		// set some variables when loading has finished
-		document.addEventListener('DOMContentLoaded', (event) => {
-			equationTitle = document.getElementById("equation").title;
-		});
 
 	</script>
 </body>

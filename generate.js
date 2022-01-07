@@ -242,7 +242,7 @@ function generate() {
     // clear result table and canvas
     clearValues();
     document.getElementById("output").value = "";
-    // run function for range
+    // run function for range and values
     try {
         var values = generateValues();
     }
