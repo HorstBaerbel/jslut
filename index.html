@@ -110,11 +110,11 @@
 				link = document.URL;
 			}
 			link += "?equation=" + encodeURIComponent(document.getElementById('equation').value);
-			link += "&xstart=" + document.getElementById('xstart').value;
-			link += "&xend=" + document.getElementById('xend').value;
-			link += "&count=" + document.getElementById('count').value;
-			link += "&bitdepth=" + document.querySelector('input[name="bitdepth"]:checked').value;
-			link += "&format=" + document.querySelector('input[name="format"]:checked').value;
+			link += "&xstart=" + encodeURIComponent(document.getElementById('xstart').value);
+			link += "&xend=" + encodeURIComponent(document.getElementById('xend').value);
+			link += "&count=" + encodeURIComponent(document.getElementById('count').value);
+			link += "&bitdepth=" + encodeURIComponent(document.querySelector('input[name="bitdepth"]:checked').value);
+			link += "&format=" + encodeURIComponent(document.querySelector('input[name="format"]:checked').value);
 			return link;
 		}
 
@@ -125,7 +125,7 @@
 				var pairs = document.URL.substring(idx + 1, document.URL.length).split('&');
 				for (var i = 0; i < pairs.length; i++) {
 					nameVal = pairs[i].split('=');
-					tempParams[nameVal[0]] = nameVal[1];
+					tempParams[nameVal[0]] = decodeURIComponent(nameVal[1]);
 				}
 				return tempParams;
 			}
@@ -149,7 +149,7 @@
 					document.getElementById("count").value = params["count"];
 				}
 				if (params["equation"]) {
-					document.getElementById("equation").value = decodeURIComponent(params["equation"]);
+					document.getElementById("equation").value = params["equation"];
 				}
 			}
 		}
